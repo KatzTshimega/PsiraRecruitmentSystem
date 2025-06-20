@@ -1,50 +1,70 @@
 ﻿@model PsiraRecruitmentSystem.Models.JobPost
 @inject IHttpContextAccessor HttpContextAccessor;
+
 @{
     var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
     ViewData["Title"] = "Job Post Details";
-
 }
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <div class="container-fluid py-5">
+            <h1 class="display-4 fw-bold text-primary mb-3">@Model.Title</h1>
+            <p class="fs-5 text-muted mb-4">
+                Posted: @Model.DatePosted.ToString("yyyy-MM-dd") |
+                Opening: @Model.OpeningDate.ToString("yyyy-MM-dd") |
+                Closing: @Model.ClosingDate.ToString("yyyy-MM-dd")
+            </p>
 
-<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
-    <div class="container-fluid py-5">
-        <h1 class="display-4 fw-bold text-primary mb-3">@Model.Title</h1>
-        <p class="fs-5 text-muted mb-4">Posted: @Model.DatePosted.ToString("yyyy-MM-dd") | Closing: @Model.ClosingDate.ToString("yyyy-MM-dd")</p>
+            <hr class="my-4">
 
-        <hr class="my-4">
-
-        <h3 class="mb-3">Job Overview</h3>
-        <ul class="list-group list-group-flush mb-4">
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Description</div>
+            <h3 class="mb-3">Job Overview</h3>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                    <strong>Description:</strong><br />
                     @Model.Description
-                </div>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Required Qualification</div>
-                    @Model.RequiredQualification
-                </div>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Required Experience</div>
-                    @Model.RequiredExperienceYears years
-                </div>
-            </li>
-        </ul>
+                </li>
+                <li class="list-group-item">
+                    <strong>Business Unit:</strong> @Model.BusinessUnit
+                </li>
+                <li class="list-group-item">
+                    <strong>Manager Name:</strong> @Model.ManagerNames
+                </li>
+                <li class="list-group-item">
+                    <strong>Manager Email:</strong> <a href="mailto:@Model.ManagerEmailAddress">@Model.ManagerEmailAddress</a>
+                </li>
+                <li class="list-group-item">
+                    <strong>Required Qualification:</strong> @Model.RequiredQualification
+                </li>
+                <li class="list-group-item">
+                    <strong>Required Driver’s License:</strong> @Model.RequiredDriversLicense
+                </li>
+                <li class="list-group-item">
+                    <strong>Experience Required:</strong> @Model.RequiredExperienceYears years
+                </li>
+            </ul>
 
-        <div class="mt-4">
-            @if (role == "Admin")
-            {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">Edit Details</a>
-            }
-            else if (role == "Applicant")
-            {
-                <a asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">Apply Now</a>
-            }
-            <a asp-action="JobPosts" class="btn btn-outline-primary w-100 mb-2">Back to Job List</a>
+            <div class="mt-4">
+                @if (role == "Admin")
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Details
+                    </a>
+                }
+                else if (role == "Applicant")
+                {
+                    @* <a asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-success w-100 mb-2">
+                    <i class="bi bi-send-fill me-1"></i> Apply Now
+                </a> *@
+                    <form asp-action="Submit" asp-controller="JobApplication" method="post" class="mt-4">
+                        <input type="hidden" asp-for="@Model.Id" name="jobPostId" value="@Model.Id" />
+
+                        <button type="submit" class="btn btn-outline-primary w-100"><i class="bi bi-send-fill me-1"></i> Apply Now</button>
+                    </form>
+                }
+                <a asp-action="JobPosts" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Job List
+                </a>
+            </div>
         </div>
     </div>
 </div>

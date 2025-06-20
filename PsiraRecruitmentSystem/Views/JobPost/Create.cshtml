@@ -25,9 +25,52 @@
                             <label asp-for="Description" class="form-label">Job Description</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Provide a detailed description of the job responsibilities and duties..."></textarea>
+                                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Detailed responsibilities and duties..."></textarea>
                             </div>
                             <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BusinessUnit" class="form-label">Business Unit</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                <select asp-for="BusinessUnit" class="form-select">
+                                    <option value="">-- Select Business Unit --</option>
+                                    <option value="ICT">ICT</option>
+                                    <option value="Human Capital">Human Capital</option>
+                                    <option value="Law Enforcement">Law Enforcement</option>
+                                    <option value="Finance">Finance</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="BusinessUnit" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label asp-for="ManagerNames" class="form-label">Manager's Name(s)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                <input asp-for="ManagerNames" class="form-control" placeholder="e.g., John Doe" />
+                            </div>
+                            <span asp-validation-for="ManagerNames" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ManagerEmailAddress" class="form-label">Manager's Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input asp-for="ManagerEmailAddress" class="form-control" type="email" placeholder="e.g., manager@company.com" />
+                            </div>
+                            <span asp-validation-for="ManagerEmailAddress" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="RequiredExperienceYears" class="form-label">Required Experience (Years)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-hourglass-half"></i></span>
+                                <input asp-for="RequiredExperienceYears" class="form-control" type="number" placeholder="e.g., 3" />
+                            </div>
+                            <span asp-validation-for="RequiredExperienceYears" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -47,26 +90,48 @@
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="RequiredExperienceYears" class="form-label">Years of Experience</label>
+                            <label asp-for="RequiredDriversLicense" class="form-label">Required Driver's License</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-hourglass-half"></i></span>
-                                <input asp-for="RequiredExperienceYears" class="form-control" type="number" placeholder="e.g., 3" />
+                                <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
+                                <select asp-for="RequiredDriversLicense" class="form-select">
+                                    <option value="">-- Select --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
-                            <span asp-validation-for="RequiredExperienceYears" class="text-danger"></span>
+                            <span asp-validation-for="RequiredDriversLicense" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="OpeningDate" class="form-label">Opening Date</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-plus"></i></span>
+                                <input asp-for="OpeningDate" class="form-control" type="date" />
+                            </div>
+                            <span asp-validation-for="OpeningDate" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="ClosingDate" class="form-label">Closing Date</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <span class="input-group-text"><i class="fas fa-calendar-minus"></i></span>
                                 <input asp-for="ClosingDate" class="form-control" type="date" />
                             </div>
                             <span asp-validation-for="ClosingDate" class="text-danger"></span>
                         </div>
 
+                        <div class="mb-3">
+                            <label asp-for="DatePosted" class="form-label">Date Posted</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-check"></i></span>
+                                <input asp-for="DatePosted" class="form-control" type="date" />
+                            </div>
+                            <span asp-validation-for="DatePosted" class="text-danger"></span>
+                        </div>
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <a asp-action="JobPosts" class="btn btn-secondary">Back to List</a>
                         </div>
                     </form>
                 </div>

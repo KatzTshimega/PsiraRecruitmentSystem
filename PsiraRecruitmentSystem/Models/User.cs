@@ -15,6 +15,7 @@ namespace PsiraRecruitmentSystem.Models
         [Required]
         public string Role { get; set; } = "Applicant";
 
+        public string? Username { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
 

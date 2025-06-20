@@ -3,51 +3,52 @@
 @{
     ViewData["Title"] = "Applicants List";
 }
+<div class="container">
+    <h2>Applicants</h2>
 
-<h2>Applicants</h2>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Province</th>
-            <th>Highest Qualification</th>
-            <th>Driver's License</th>
-            <th>Current Position</th>
-            <th>Current Company</th>
-            <th>Experience (Years)</th>
-            <th>Previous Company</th>
-            <th>Previous Position</th>
-            <th>Period From</th>
-            <th>Period To</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            int count = 1;
-            foreach (var applicant in Model)
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Province</th>
+                <th>Highest Qualification</th>
+                <th>Driver's License</th>
+                <th>Current Position</th>
+                <th>Current Company</th>
+                <th>Experience (Years)</th>
+                <th>Previous Company</th>
+                <th>Previous Position</th>
+                <th>Period From</th>
+                <th>Period To</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int count = 1;
+                foreach (var applicant in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@applicant.HighestQualification</td>
+                        <td>@applicant.DriversLicense</td>
+                        <td>@applicant.CurrentPosition</td>
+                        <td>@applicant.CurrentCompany</td>
+                        <td>@applicant.TotalExperienceInYears</td>
+                        <td>@applicant.PreviousCompany</td>
+                        <td>@applicant.PreviousPosition</td>
+                        <td>@applicant.PeriodFrom.ToString("yyyy-MM-dd")</td>
+                        <td>@applicant.PeriodTo.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                    count++;
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@count</td>
-                    <td>@applicant.HighestQualification</td>
-                    <td>@applicant.DriversLicense</td>
-                    <td>@applicant.CurrentPosition</td>
-                    <td>@applicant.CurrentCompany</td>
-                    <td>@applicant.TotalExperienceInYears</td>
-                    <td>@applicant.PreviousCompany</td>
-                    <td>@applicant.PreviousPosition</td>
-                    <td>@applicant.PeriodFrom.ToString("yyyy-MM-dd")</td>
-                    <td>@applicant.PeriodTo.ToString("yyyy-MM-dd")</td>
+                    <td colspan="11" class="text-center">No applicants found.</td>
                 </tr>
-                count++;
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="11" class="text-center">No applicants found.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

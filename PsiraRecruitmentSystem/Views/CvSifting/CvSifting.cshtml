@@ -3,63 +3,64 @@
 @{
     ViewData["Title"] = "CV Sifting";
 }
+<div class="container">
+    <h2>CV Sifting Results</h2>
 
-<h2>CV Sifting Results</h2>
-
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Province</th>
-            <th>License</th>
-            <th>Qualification</th>
-            <th>Experience (Years)</th>
-            <th>Total Points</th>
-            <th>Meets Requirements</th>
-            <th>CV</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            int count = 1;
-            foreach (var applicant in Model)
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Province</th>
+                <th>License</th>
+                <th>Qualification</th>
+                <th>Experience (Years)</th>
+                <th>Total Points</th>
+                <th>Meets Requirements</th>
+                <th>CV</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int count = 1;
+                foreach (var applicant in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@applicant.Name</td>
+                        <td>@applicant.Surname</td>
+                        <td>@applicant.Province</td>
+                        <td>@applicant.DriversLicense</td>
+                        <td>@applicant.HighestQualification</td>
+                        <td>@applicant.TotalExperience</td>
+                        <td>@applicant.TotalPoints</td>
+                        <td>
+                            <span class="badge @(applicant.MeetRequirements == "Yes" ? "bg-success" : "bg-danger")">
+                                @applicant.MeetRequirements
+                            </span>
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(applicant.CvPath))
+                            {
+                                <a href="@Url.Content($"~/{applicant.CvPath}")" target="_blank" class="btn btn-sm btn-primary">View CV</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No CV</span>
+                            }
+                        </td>
+                    </tr>
+                    count++;
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@count</td>
-                    <td>@applicant.Name</td>
-                    <td>@applicant.Surname</td>
-                    <td>@applicant.Province</td>
-                    <td>@applicant.DriversLicense</td>
-                    <td>@applicant.HighestQualification</td>
-                    <td>@applicant.TotalExperience</td>
-                    <td>@applicant.TotalPoints</td>
-                    <td>
-                        <span class="badge @(applicant.MeetRequirements == "Yes" ? "bg-success" : "bg-danger")">
-                            @applicant.MeetRequirements
-                        </span>
-                    </td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(applicant.CvPath))
-                        {
-                            <a href="@Url.Content($"~/{applicant.CvPath}")" target="_blank" class="btn btn-sm btn-primary">View CV</a>
-                        }
-                        else
-                        {
-                            <span class="text-muted">No CV</span>
-                        }
-                    </td>
+                    <td colspan="9" class="text-center text-muted">No records found.</td>
                 </tr>
-                count++;
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="9" class="text-center text-muted">No records found.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

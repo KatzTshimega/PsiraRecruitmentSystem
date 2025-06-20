@@ -45,6 +45,7 @@ namespace PsiraRecruitmentSystem.Controllers
                 Email = model.Email,
                 Name = model.Name,
                 Surname = model.Surname,
+                Username = model.Username,
                 IdNumber = model.IdNumber,
                 CellPhoneNumber = model.CellPhoneNumber,
                 WorkNumber = model.WorkNumber,
@@ -52,10 +53,11 @@ namespace PsiraRecruitmentSystem.Controllers
                 PostalCode = model.PostalCode,
                 Province = model.Province,
                 Role = "Applicant",
-                CvPath = "",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                CvPath = ""
             };
 
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -127,7 +129,7 @@ namespace PsiraRecruitmentSystem.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
@@ -146,6 +148,7 @@ namespace PsiraRecruitmentSystem.Controllers
             HttpContext.Session.SetString("UserEmail", user.Email);
             HttpContext.Session.SetString("UserRole", user.Role);
             HttpContext.Session.SetString("Name", user.Name);
+            HttpContext.Session.SetString("Username", user.Username);
             HttpContext.Session.SetString("Surname", user.Surname);
 
             // Redirect by role

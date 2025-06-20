@@ -3,54 +3,56 @@
 @{
     ViewData["Title"] = "Closed Job Posts";
 }
+<div class="container">
+    <h2 class="mb-4 text-center">Closed Job Posts</h2>
 
-<h2 class="mb-4 text-center">Closed Job Posts</h2>
-
-@if (!Model.Any())
-{
-    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
-        <div class="container-fluid py-5">
-            <h3 class="display-6 fw-bold text-muted mb-3">No Closed Job Posts Found!</h3>
-            <p class="fs-5 text-muted">There are currently no job posts that have reached their closing date.</p>
+    @if (!Model.Any())
+    {
+        <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+            <div class="container-fluid py-5">
+                <h3 class="display-6 fw-bold text-muted mb-3">No Closed Job Posts Found!</h3>
+                <p class="fs-5 text-muted">There are currently no job posts that have reached their closing date.</p>
+            </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 p-3">
-        @foreach (var job in Model)
-        {
-            <div class="col">
-                <div class="card h-100 shadow-sm border-secondary">
-                    @* Using border-secondary for closed posts to differentiate *@
-                    <div class="card-header bg-secondary text-white">
-                        @* Secondary background for closed posts *@
-                        <h5 class="mb-0">Closed Job Post</h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <h4 class="card-title text-primary mb-3">@job.Title</h4>
-                        <h6 class="card-subtitle mb-3 text-muted">
-                            <small>Posted: @job.DatePosted.ToShortDateString() | **Closed:** @job.ClosingDate.ToShortDateString()</small> @* Highlighted "Closed" date *@
-                        </h6>
-                        <hr class="mb-3" />
-                        <ul class="list-group list-group-flush mb-3">
-                            <li class="list-group-item px-0 pb-1 pt-0 bg-white">
-                                <strong>Required Qualification:</strong> @job.RequiredQualification
-                            </li>
-                            <li class="list-group-item px-0 pb-1 pt-0 bg-white">
-                                <strong>Experience:</strong> @job.RequiredExperienceYears years
-                            </li>
-                        </ul>
-                        <p class="card-text mb-3">@job.Description</p> @* Moved description here for better flow *@
-                    </div>
-                    <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4">
-                        <div class="d-grid gap-2">
-                            @* No "Apply" button as posts are closed. You might add a "View Details" if applicable *@
-                            <a asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-secondary w-100">View Details (Closed)</a>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 p-3">
+            @foreach (var job in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-secondary">
+                        @* Using border-secondary for closed posts to differentiate *@
+                        <div class="card-header bg-secondary text-white">
+                            @* Secondary background for closed posts *@
+                            <h5 class="mb-0">Closed Job Post</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="card-title text-primary mb-3">@job.Title</h4>
+                            <h6 class="card-subtitle mb-3 text-muted">
+                                <small>Posted: @job.DatePosted.ToShortDateString() | **Closed:** @job.ClosingDate.ToShortDateString()</small> @* Highlighted "Closed" date *@
+                            </h6>
+                            <hr class="mb-3" />
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white">
+                                    <strong>Required Qualification:</strong> @job.RequiredQualification
+                                </li>
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white">
+                                    <strong>Experience:</strong> @job.RequiredExperienceYears years
+                                </li>
+                            </ul>
+                            <p class="card-text mb-3">@job.Description</p> @* Moved description here for better flow *@
+                        </div>
+                        <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4">
+                            <div class="d-grid gap-2">
+                                @* No "Apply" button as posts are closed. You might add a "View Details" if applicable *@
+                                <a asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-secondary w-100">View Details (Closed)</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-}
+            }
+        </div>
+    }
+
+</div>

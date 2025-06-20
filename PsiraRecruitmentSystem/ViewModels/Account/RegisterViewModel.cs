@@ -24,6 +24,10 @@ namespace PsiraRecruitmentSystem.ViewModels.Account
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Username")]
+        public string? Username { get; set; }
+
+        [Required]
         [Display(Name = "Last Name")]
         public string Surname { get; set; }
 
@@ -53,7 +57,12 @@ namespace PsiraRecruitmentSystem.ViewModels.Account
         [Required]
         public string Province { get; set; }
 
+        [Display(Name = "Upload CV")]
+        public string? CvPath { get; set; }
+
         [Required]
         public string Role { get; set; } = "Applicant";
+
+
     }
 }
