@@ -1,0 +1,50 @@
+﻿@model PsiraRecruitmentSystem.Models.JobPost
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
+    ViewData["Title"] = "Job Post Details";
+
+}
+
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold text-primary mb-3">@Model.Title</h1>
+        <p class="fs-5 text-muted mb-4">Posted: @Model.DatePosted.ToString("yyyy-MM-dd") | Closing: @Model.ClosingDate.ToString("yyyy-MM-dd")</p>
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">Job Overview</h3>
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Description</div>
+                    @Model.Description
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Required Qualification</div>
+                    @Model.RequiredQualification
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Required Experience</div>
+                    @Model.RequiredExperienceYears years
+                </div>
+            </li>
+        </ul>
+
+        <div class="mt-4">
+            @if (role == "Admin")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">Edit Details</a>
+            }
+            else if (role == "Applicant")
+            {
+                <a asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">Apply Now</a>
+            }
+            <a asp-action="JobPosts" class="btn btn-outline-primary w-100 mb-2">Back to Job List</a>
+        </div>
+    </div>
+</div>

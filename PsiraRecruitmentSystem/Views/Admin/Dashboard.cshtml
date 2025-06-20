@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    .thebackground {
+        background-image: url('/images/hr_background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+</style>
+
+<div class="container py-5">
+    <div class="text-center mb-5 p-4 thebackground text-white rounded-3 shadow">
+        <h1 class="display-5 fw-bold mb-2 text-white">
+            <i class="bi bi-person-gear me-3"></i>Admin Hub
+        </h1>
+        <p class="lead mb-0">Your control center for managing the platform.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5 justify-content-center">
+        <div class="col">
+            <div class="d-grid">
+                <a href="@Url.Action("Create", "JobPost")" class="btn btn-lg btn-success text-white shadow-sm py-4 rounded-3 d-flex flex-column align-items-center justify-content-center">
+                    <i class="bi bi-journal-plus fs-1 mb-2"></i>
+                    <span class="fs-5 fw-bold">Create New Job Post</span>
+                    <small class="text-white-50">Define new career opportunities.</small>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid">
+                <a href="@Url.Action("JobPosts", "JobPost")" class="btn btn-lg btn-outline-primary shadow-sm py-4 rounded-3 d-flex flex-column align-items-center justify-content-center">
+                    <i class="bi bi-briefcase fs-1 mb-2"></i>
+                    <span class="fs-5 fw-bold">Manage Job Posts</span>
+                    <small class="text-muted">Edit existing, or view all jobs.</small>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid">
+                <a href="@Url.Action("Applicants", "Admin")" class="btn btn-lg btn-outline-info shadow-sm py-4 rounded-3 d-flex flex-column align-items-center justify-content-center">
+                    <i class="bi bi-people fs-1 mb-2"></i>
+                    <span class="fs-5 fw-bold">View Applicants</span>
+                    <small class="text-muted">Browse all registered profiles.</small>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid">
+                <a href="@Url.Action("Applications", "Admin")" class="btn btn-lg btn-outline-secondary shadow-sm py-4 rounded-3 d-flex flex-column align-items-center justify-content-center">
+                    <i class="bi bi-file-earmark-check fs-1 mb-2"></i>
+                    <span class="fs-5 fw-bold">Review Applications</span>
+                    <small class="text-muted">Process and track submissions.</small>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="d-grid">
+                <a href="@Url.Action("CvSifting", "CvSifting")" class="btn btn-lg btn-dark text-white shadow-sm py-4 rounded-3 d-flex flex-column align-items-center justify-content-center">
+                    <i class="bi bi-funnel fs-1 mb-2"></i>
+                    <span class="fs-5 fw-bold">CV Sifting & AI Tools</span>
+                    <small class="text-white-50">Leverage smart sifting for candidates.</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

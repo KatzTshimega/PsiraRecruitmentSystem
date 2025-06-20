@@ -1,0 +1,133 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+
+@{
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PsiraRecruitmentSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/bootstrap.min.luxury.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PsiraRecruitmentSystem.styles.css" asp-append-version="true" />
+  
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+        <style>
+            /* Optional: Add custom hover effect for cards */
+            .lift-on-hover {
+                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            }
+
+                .lift-on-hover:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+                }
+
+        .animate-button {
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+
+            .animate-button:hover {
+                transform: scale(1.02); /* Slightly grow on hover */
+                box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.2); /* Blue shadow for primary button */
+            }
+
+            .nav-item{
+                margin-right: 0.5rem;
+            }
+        </style>
+   
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/psira_icon.png" style="width: 4rem;" /> PSiRA e-Recruitment
+                    </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (role != null)
+                        {
+                            // Admin Navigation
+                            if (role == "Admin")
+                            {
+                                <li class="nav-item"><a class="nav-link text-dark" asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="jobPostDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-briefcase"></i> Job Posts
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="jobPostDropdown">
+                                        <li><a class="dropdown-item" asp-controller="JobPost" asp-action="Create"><i class="bi bi-plus-circle me-2"></i> Create New Post</a></li>
+                                        <li><a class="dropdown-item" asp-controller="JobPost" asp-action="JobPosts"><i class="bi bi-list-ul me-2"></i> List All Jobs</a></li>
+                                        <li><a class="dropdown-item" asp-controller="JobPost" asp-action="ClosedPosts"><i class="bi bi-x-circle me-2"></i>List Closed Posts</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-controller="Admin" asp-action="Applicants"> <i class="bi bi-people"></i> Applicants</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-controller="Admin" asp-action="Applications"><i class="bi bi-file-earmark-text"></i> Applications</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-controller="CvSifting" asp-action="CvSifting"><i class="bi bi-search"></i> CV Sifting</a></li>
+                            }
+
+                            // Applicant Navigation
+                            else if (role == "Applicant")
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-controller="Applicant" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="JobPost" asp-action="JobPosts"><i class="bi bi-briefcase"></i> Job Posts</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="JobApplication" asp-action="MyApplications"><i class="bi bi-journal-text"></i> My Applications</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="UploadCv"><i class="bi bi-upload"></i> Upload CV</a></li>
+                            }
+
+                            
+                        }
+                        
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (role == null)
+                        {
+                            // For guests (not logged in)
+                            <li class="nav-item"><a class="nav-link text-dark" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus-fill"></i> Register</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-controller="Account" asp-action="Login"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
+                        }
+                        else
+                        {
+                            // Logout
+                            <li class="nav-item"><a class="nav-link text-dark" asp-controller="Account" asp-action="Logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        }
+                    </ul>
+
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - PsiraRecruitmentSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

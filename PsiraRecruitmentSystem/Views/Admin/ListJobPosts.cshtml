@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PsiraRecruitmentSystem.Models.JobPost>
+
+@{
+    ViewData["Title"] = "Job Posts";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">All Job Posts</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No job posts available.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Qualification</th>
+                    <th>Experience (Years)</th>
+                    <th>Date Posted</th>
+                    <th>Closing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var job in Model)
+                {
+                    <tr>
+                        <td>@job.Title</td>
+                        <td>@(job.Description.Length > 100 ? job.Description.Substring(0, 100) + "..." : job.Description)</td>
+                        <td>@job.RequiredQualification</td>
+                        <td>@job.RequiredExperienceYears</td>
+                        <td>@job.DatePosted.ToString("dd MMM yyyy")</td>
+                        <td>@job.ClosingDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

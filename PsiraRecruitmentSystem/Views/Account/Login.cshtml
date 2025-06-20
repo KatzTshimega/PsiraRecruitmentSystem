@@ -1,0 +1,71 @@
+﻿@model PsiraRecruitmentSystem.ViewModels.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<style>
+    .loginbackground {
+        background-image: url('/images/login.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        min-height: 100vh;
+    }
+</style>
+
+<script>
+        function applyLoginBackground() {
+        document.body.classList.add('loginbackground');
+    }
+    document.addEventListener('DOMContentLoaded', applyLoginBackground);
+</script>
+
+
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-lg p-4">
+
+                <div class="card-body">
+                    <h2 class="card-title text-center text-primary mb-4">Login</h2>
+                    <p class="card-text text-center text-muted mb-4">Please log in to access your account.</p>
+
+                    <form asp-action="Login" method="post">
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email Address</label>
+                            <input asp-for="Email" class="form-control form-control-lg" placeholder="Enter your email" />
+                            <span asp-validation-for="Email" class="text-danger fs-6 mt-1 d-block"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger fs-6 mt-1 d-block"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-box-arrow-in-right"></i> Log In</button>
+                        </div>
+
+                        <div asp-validation-summary="All" class="alert mb-3"></div>
+
+                        <p class="text-center mt-4 mb-0">
+                            Don't have an account? <a asp-action="Register">Register Here</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

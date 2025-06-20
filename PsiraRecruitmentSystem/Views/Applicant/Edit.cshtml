@@ -1,0 +1,118 @@
+﻿@model PsiraRecruitmentSystem.Models.ApplicantDetails
+
+@{
+    ViewData["Title"] = "Edit Applicant";
+    var userId = Context.Session.GetInt32("UserId") ?? Model.UserId;
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center">Edit Applicant Information</h2>
+
+    <div class="card shadow-sm border-primary mx-auto" style="max-width: 900px;">
+        @* Increased max-width for more fields *@
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h4 class="mb-0">Update Your Professional Profile</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" value="@userId" />
+
+                <h5 class="mb-3 text-secondary">General Professional Details</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="HighestQualification" class="form-label fw-bold"></label>
+                        <select asp-for="HighestQualification" class="form-control" required>
+                            <option value="">-- Select Qualification --</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Degree">Degree</option>
+                            <option value="Honours">Honours</option>
+                            <option value="Masters">Masters</option>
+                            <option value="PhD">PhD</option>
+                        </select>
+                        <span asp-validation-for="HighestQualification" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DriversLicense" class="form-label fw-bold"></label>
+                        <select asp-for="DriversLicense" class="form-control">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <span asp-validation-for="DriversLicense" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="TotalExperienceInYears" class="form-label fw-bold"></label>
+                        <input asp-for="TotalExperienceInYears" class="form-control" />
+                        <span asp-validation-for="TotalExperienceInYears" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <h5 class="mb-3 text-secondary">Current Employment</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="CurrentPosition" class="form-label fw-bold"></label>
+                        <input asp-for="CurrentPosition" class="form-control" />
+                        <span asp-validation-for="CurrentPosition" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="CurrentCompany" class="form-label fw-bold"></label>
+                        <input asp-for="CurrentCompany" class="form-control" />
+                        <span asp-validation-for="CurrentCompany" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="CurrentSalary" class="form-label fw-bold"></label>
+                        <input asp-for="CurrentSalary" class="form-control" />
+                        <span asp-validation-for="CurrentSalary" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="YearsInCurrentPosition" class="form-label fw-bold">Years in Current Position</label>
+                        <select asp-for="YearsInCurrentPosition" class="form-control">
+                            <option>--Select--</option>
+                            <option value="lessThan12Months">Less than 12 Months</option>
+                            <option value="moreThan12Months">More than a year</option>
+                            <option value="moreThanTwoYears">More than 2 years</option>
+                        </select>
+                        <span asp-validation-for="YearsInCurrentPosition" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <h5 class="mb-3 text-secondary">Previous Employment Details</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="PreviousCompany" class="form-label fw-bold"></label>
+                        <input asp-for="PreviousCompany" class="form-control" />
+                        <span asp-validation-for="PreviousCompany" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PreviousPosition" class="form-label fw-bold"></label>
+                        <input asp-for="PreviousPosition" class="form-control" />
+                        <span asp-validation-for="PreviousPosition" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PeriodFrom" class="form-label fw-bold"></label>
+                        <input asp-for="PeriodFrom" class="form-control" type="date" />
+                        <span asp-validation-for="PeriodFrom" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PeriodTo" class="form-label fw-bold"></label>
+                        <input asp-for="PeriodTo" class="form-control" type="date" />
+                        <span asp-validation-for="PeriodTo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Cancel</a> @* Assuming 'Index' is the back navigation for this context *@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

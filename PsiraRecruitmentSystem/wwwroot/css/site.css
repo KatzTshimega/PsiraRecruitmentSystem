@@ -1,0 +1,147 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.bg-gradient-primary-to-secondary {
+    background: linear-gradient(45deg, #007bff, #28a745); /* Primary to Success gradient */
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+/* Animation for fade-in effect */
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+    .animate-fade-in.delay-1 {
+        animation-delay: 0.5s;
+    }
+
+    .animate-fade-in.delay-2 {
+        animation-delay: 1s;
+    }
+
+    .animate-fade-in.delay-3 {
+        animation-delay: 1.5s;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for button bounce */
+.animate-button-bounce {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1);
+}
+
+    .animate-button-bounce:hover {
+        transform: scale(1.05) translateY(-3px); /* Slightly grow and lift */
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    }
+
+/* Optional: Abstract device shapes for background, like Bootstrap's Jumbotron example */
+.product-device {
+    position: absolute;
+    width: 300px;
+    height: 540px;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 21px;
+    transform: rotate(30deg);
+}
+
+    .product-device::before {
+        position: absolute;
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, .1);
+        border-radius: 50%;
+    }
+
+.product-device-2 {
+    top: -1rem;
+    right: 15rem;
+    transform: rotate(30deg);
+}
+
+.product-device {
+    top: 1rem;
+    left: 5rem;
+    transform: rotate(-30deg);
+}
+
+
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 150px); 
+}
+
+
+@media (max-width: 767.98px) {
+    .text-truncate {
+        max-width: 100%;
+        white-space: normal;
+    }
+}
+
+.icon-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Basic pulse animation for the button */
+@@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate__animated.animate__pulse.animate__infinite {
+    animation: pulse 2s infinite;
+}

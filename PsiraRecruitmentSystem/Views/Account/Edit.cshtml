@@ -1,0 +1,87 @@
+﻿@model PsiraRecruitmentSystem.Models.User
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center">Edit User Information</h2>
+
+    <div class="card shadow-sm border-primary mx-auto" style="max-width: 800px;">
+       
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h4 class="mb-0">Update Your Profile</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Role" value="@Model.Role" />
+
+                <div class="row g-3">
+                   
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-bold"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="IdNumber" class="form-label fw-bold"></label>
+                        <input asp-for="IdNumber" class="form-control" />
+                        <span asp-validation-for="IdNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label fw-bold"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Surname" class="form-label fw-bold"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="CellPhoneNumber" class="form-label fw-bold"></label>
+                        <input asp-for="CellPhoneNumber" class="form-control" />
+                        <span asp-validation-for="CellPhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="WorkNumber" class="form-label fw-bold"></label>
+                        <input asp-for="WorkNumber" class="form-control" />
+                        <span asp-validation-for="WorkNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="HomeAddress" class="form-label fw-bold"></label>
+                        <input asp-for="HomeAddress" class="form-control" />
+                        <span asp-validation-for="HomeAddress" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Province" class="form-label fw-bold"></label>
+                        <input asp-for="Province" class="form-control" />
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PostalCode" class="form-label fw-bold"></label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                    <a asp-action="Applicants" class="btn btn-outline-secondary btn-lg">Back to Applicants</a> @* Added a back button *@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

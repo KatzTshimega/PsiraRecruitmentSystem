@@ -1,0 +1,40 @@
+﻿@model PsiraRecruitmentSystem.Models.JobPost
+
+@{
+    ViewData["Title"] = "Delete Job Post";
+}
+
+<h2>Delete Job Post</h2>
+
+<h4>Are you sure you want to delete this job post?</h4>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Title</dt>
+            <dd class="col-sm-8">@Model.Title</dd>
+
+            <dt class="col-sm-4">Description</dt>
+            <dd class="col-sm-8">@Model.Description</dd>
+
+            <dt class="col-sm-4">Required Qualification</dt>
+            <dd class="col-sm-8">@Model.RequiredQualification</dd>
+
+            <dt class="col-sm-4">Experience (Years)</dt>
+            <dd class="col-sm-8">@Model.RequiredExperienceYears</dd>
+
+            <dt class="col-sm-4">Date Posted</dt>
+            <dd class="col-sm-8">@Model.DatePosted.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-4">Closing Date</dt>
+            <dd class="col-sm-8">@Model.ClosingDate.ToString("yyyy-MM-dd")</dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+

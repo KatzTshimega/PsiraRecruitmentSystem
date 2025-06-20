@@ -1,0 +1,73 @@
+﻿@model PsiraRecruitmentSystem.Models.ApplicantDetails
+
+@{
+    ViewData["Title"] = "Applicant Details";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center">Applicant Details</h2>
+
+    <div class="card  border-primary mx-auto" style="max-width: 800px;">
+      
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h4 class="mb-0">Professional Profile</h4>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="mb-3 text-secondary border-bottom pb-2">Key Qualifications & Experience</h5>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Highest Qualification:</strong>
+                    <span>@Model.HighestQualification</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Driver's License:</strong>
+                    <span>@Model.DriversLicense</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Total Experience:</strong>
+                    <span>@Model.TotalExperienceInYears years</span>
+                </li>
+            </ul>
+
+            <h5 class="mb-3 text-secondary border-bottom pb-2">Current Employment</h5>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Current Position:</strong>
+                    <span>@Model.CurrentPosition</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Current Company:</strong>
+                    <span>@Model.CurrentCompany</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Years in Current Position:</strong>
+                    <span>@Model.YearsInCurrentPosition</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Current Salary:</strong>
+                    <span>R @Model.CurrentSalary</span>
+                </li>
+            </ul>
+
+            <h5 class="mb-3 text-secondary border-bottom pb-2">Previous Employment</h5>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Previous Company:</strong>
+                    <span>@Model.PreviousCompany</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Previous Position:</strong>
+                    <span>@Model.PreviousPosition</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Period:</strong>
+                    <span>@Model.PeriodFrom.ToString("yyyy-MM-dd") - @Model.PeriodTo.ToString("yyyy-MM-dd")</span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4 d-flex justify-content-between flex-wrap">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg flex-grow-1 me-2 mb-2">Edit Details</a>
+            <a asp-controller="Applicant" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg flex-grow-1 mb-2">Back to Dashboard</a>
+        </div>
+    </div>
+</div>

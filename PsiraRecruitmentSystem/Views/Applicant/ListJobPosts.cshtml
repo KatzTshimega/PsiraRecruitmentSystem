@@ -1,0 +1,37 @@
+﻿@model List<PsiraRecruitmentSystem.Models.JobPost>
+
+@{
+    ViewData["Title"] = "Available Job Posts";
+}
+
+<h2 class="mb-4">Available Job Posts</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No job posts are currently available.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var job in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@job.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@job.Title</h6>
+
+                        <p class="card-text mt-3">@job.Description?.Substring(0, Math.Min(100, job.Description.Length))... </p>
+
+                        <ul class="list-group list-group-flush my-3">
+                            <li class="list-group-item"><strong>Posted:</strong> @job.DatePosted.ToShortDateString()</li>
+                            <li class="list-group-item"><strong>Closing Date:</strong> @job.ClosingDate.ToShortDateString()</li>
+                        </ul>
+
+                        <a asp-controller="JobPost" asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-primary mt-auto">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

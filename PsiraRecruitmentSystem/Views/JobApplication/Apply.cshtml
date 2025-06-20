@@ -1,0 +1,58 @@
+﻿@model PsiraRecruitmentSystem.Models.JobPost
+
+@{
+    ViewData["Title"] = "Apply for Job";
+}
+
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold text-primary mb-3">Apply for: @Model.Title</h1>
+        <p class="fs-5 text-muted mb-4">You are about to apply for this position. Please review the details below.</p>
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">Job Details</h3>
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Description</div>
+                    @Model.Description
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Required Qualification</div>
+                    @Model.RequiredQualification
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Required Experience</div>
+                    @Model.RequiredExperienceYears years
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Date Posted</div>
+                    @Model.DatePosted.ToString("dd MMM yyyy")
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Closing Date</div>
+                    @Model.ClosingDate.ToString("dd MMM yyyy")
+                </div>
+            </li>
+        </ul>
+
+        <form asp-action="Submit" asp-controller="JobApplication" method="post" class="mt-4">
+            <input type="hidden" asp-for="Id" name="jobPostId" value="@Model.Id" />
+            <div class="d-grid gap-2">
+
+                <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+
+                <a asp-action="JobPosts" asp-controller="JobPost" class="btn btn-secondary btn-lg">Cancel and Go Back</a>
+            </div>
+        </form>
+    </div>
+</div>

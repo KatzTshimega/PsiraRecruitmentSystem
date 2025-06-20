@@ -1,0 +1,77 @@
+﻿@model List<PsiraRecruitmentSystem.Models.JobApplication>
+
+@{
+    ViewData["Title"] = "My Applications";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center text-primary">Your Job Applications</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center border-start border-5 border-info">
+            <div class="container-fluid py-5">
+                <h3 class="display-6 fw-bold text-info mb-3">No Applications Yet!</h3>
+                <p class="fs-5 text-muted mb-4">
+                    It looks like you haven't applied for any jobs. Explore our available positions and find your next opportunity!
+                </p>
+                <a asp-controller="JobPost" asp-action="JobPosts" class="btn btn-primary btn-lg mt-3">
+                    <i class="bi bi-search me-2"></i> Browse Job Posts
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @* Two columns on medium screens and up *@
+            @foreach (var application in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-success">
+                        @* Simple success border for applied status *@
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
+                            <h5 class="mb-0">Application for: <strong class="text-uppercase">@application.JobPost?.Title</strong></h5>
+                            <span class="badge bg-light text-success fs-6 fw-bold p-2 rounded-pill">
+                                <i class="bi bi-check-circle-fill me-1"></i> Applied
+                            </span>
+                        </div>
+                        <div class="card-body p-4">
+                            <h6 class="card-subtitle mb-3 text-muted">Submitted on: @application.DateApplied.ToString("dd MMM, yyyy HH:mm")</h6>
+                            <hr class="my-3">
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white d-flex justify-content-between align-items-center">
+                                    <strong>Description:</strong>
+                                    <span class="text-end text-muted text-truncate flex-grow-1 ms-3">@application.JobPost?.Description</span> @* Truncate long descriptions *@
+                                </li>
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white d-flex justify-content-between align-items-center">
+                                    <strong>Required Qualification:</strong>
+                                    <span class="text-end text-muted">@application.JobPost?.RequiredQualification</span>
+                                </li>
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white d-flex justify-content-between align-items-center">
+                                    <strong>Experience Required:</strong>
+                                    <span class="text-end text-muted">@application.JobPost?.RequiredExperienceYears years</span>
+                                </li>
+                                <li class="list-group-item px-0 pb-1 pt-0 bg-white d-flex justify-content-between align-items-center">
+                                    <strong>Job Posted:</strong>
+                                    <span class="text-end text-muted">@application.JobPost?.DatePosted.ToString("dd MMM, yyyy")</span>
+                                </li>
+                                <li class="list-group-item px-0 pb-0 pt-0 bg-white d-flex justify-content-between align-items-center">
+                                    <strong>Closing Date:</strong>
+                                    <span class="text-end text-danger fw-bold">@application.JobPost?.ClosingDate.ToString("dd MMM, yyyy")</span> @* Highlight closing date *@
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-light border-top pt-3 px-4 pb-4">
+                            @* Light background for footer *@
+                            <a asp-controller="JobPost" asp-action="Details" asp-route-id="@application.JobPost?.Id" class="btn btn-outline-primary w-100 btn-lg">
+                                <i class="bi bi-file-earmark-text me-2"></i> View Job Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+

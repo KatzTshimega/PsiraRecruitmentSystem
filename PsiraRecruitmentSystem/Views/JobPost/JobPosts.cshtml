@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PsiraRecruitmentSystem.Models.JobPost>
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewData["Title"] = "Available Job Posts";
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
+}
+<h2 class="mb-4">Available Job Posts</h2>
+
+@if (role == "Admin")
+{
+    <div class="d-grid gap-2">
+        <a asp-controller="JobPost" asp-action="Create" class="btn btn-lg btn-primary">Create New Job Post</a>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+        <div class="container-fluid py-5">
+            <h3 class="display-6 fw-bold text-muted mb-3">No Job Posts Available!</h3>
+            <p class="fs-5 text-muted">Check back later, as new opportunities are posted regularly.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 p-3">
+        @foreach (var job in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm border-primary">
+                    @* Added border-primary for consistency *@
+                    <div class="card-header bg-primary text-white">
+                        @* Added header for visual appeal *@
+                        <h5 class="mb-0">Job Opportunity</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-primary mb-3">@job.Title</h4>
+                        <h6 class="card-subtitle mb-3 text-muted">
+                            <small>Posted: @job.DatePosted.ToString("yyyy-MM-dd") | Closes: @job.ClosingDate.ToString("yyyy-MM-dd")</small>
+                        </h6>
+                        <hr class="mb-3" />
+                        <p class="card-text mb-2"><strong>Description:</strong> @job.Description</p>
+                        <p class="card-text mb-2"><strong>Required Qualification:</strong> @job.RequiredQualification</p>
+                        <p class="card-text mb-3"><strong>Experience:</strong> @job.RequiredExperienceYears years</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4">
+                        <div class="d-grid gap-2">
+                            <a asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-primary w-100 mb-2">View Details</a>
+                            @if (role == "Applicant")
+                            {
+                                <a asp-controller="JobApplication" asp-action="Apply" asp-route-id="@job.Id" class="btn btn-outline-primary w-100">Apply Now</a>
+                            }else if (role == "Admin")
+                            {
+                                <a asp-action="Edit" asp-route-id="@job.Id" class="btn btn-primary w-100 mb-2">Edit Details</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
