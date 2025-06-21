@@ -1,14 +1,14 @@
 ﻿@model PsiraRecruitmentSystem.Models.ApplicantDetails
-
+@inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "Applicant Details";
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
 }
 
 <div class="container py-4">
-    <h2 class="mb-4 text-center">Applicant Details</h2>
 
-    <div class="card  border-primary mx-auto" style="max-width: 800px;">
-      
+    <div class="card shadow-sm border-primary mx-auto" style="max-width: 800px;">
+
         <div class="card-header bg-primary text-white text-center py-3">
             <h4 class="mb-0">Professional Profile</h4>
         </div>
@@ -66,8 +66,15 @@
             </ul>
         </div>
         <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4 d-flex justify-content-between flex-wrap">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg flex-grow-1 me-2 mb-2">Edit Details</a>
-            <a asp-controller="Applicant" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg flex-grow-1 mb-2">Back to Dashboard</a>
+            @if (@role == "Admin")
+            {
+                <a asp-controller="Admin" asp-action="Applicants" class="btn btn-outline-secondary btn-lg">Back to Applicants</a>
+            }
+            else if (@role == "Applicant")
+            {
+                <a asp-controller="Applicant" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg">Back to Dashboard</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg flex-grow-1 me-2 mb-2">Edit Details</a>
+            }
         </div>
     </div>
 </div>

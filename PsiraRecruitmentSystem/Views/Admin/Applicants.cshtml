@@ -86,7 +86,7 @@
                                             <p class="mb-1"><strong>CV:</strong></p>
                                             @if (!string.IsNullOrEmpty(user.CvPath))
                                             {
-                                                <a href="@Url.Content(user.CvPath)" target="_blank" class="btn btn-outline-success w-100 btn-sm">Download CV</a>
+                                                <a href="@Url.Content($"~/{user.CvPath}")" target = "_blank" class= "btn btn-outline-success w-100 btn-sm" > Download CV</a>
                                             }
                                             else
                                             {

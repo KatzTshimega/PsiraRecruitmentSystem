@@ -37,6 +37,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /JobPost/ListJobPosts
         public async Task<IActionResult> ListJobPosts()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             var jobPosts = await _context.JobPosts.ToListAsync();
             return View(jobPosts);
         }
@@ -45,6 +49,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /Applicant/Create
         public IActionResult Create()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             return View();
         }
 
@@ -85,6 +93,13 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /Applicant/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (id == null)
                 return NotFound();
 
@@ -100,6 +115,12 @@ namespace PsiraRecruitmentSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ApplicantDetails applicant)
         {
+            var userIds = HttpContext.Session.GetInt32("UserId");
+
+            if (userIds == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var userId = applicant.UserId;
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -132,6 +153,13 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /Applicant/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (id == null)
                 return NotFound();
 

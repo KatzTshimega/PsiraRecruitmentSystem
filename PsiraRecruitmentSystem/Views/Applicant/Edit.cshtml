@@ -1,8 +1,9 @@
 ﻿@model PsiraRecruitmentSystem.Models.ApplicantDetails
-
+@inject IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "Edit Applicant";
     var userId = Context.Session.GetInt32("UserId") ?? Model.UserId;
+    var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
 }
 
 <div class="container py-4">
@@ -103,8 +104,16 @@
                 </div>
 
                 <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
-                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Cancel</a> @* Assuming 'Index' is the back navigation for this context *@
+
+                    @if (@role == "Admin")
+                    {
+                        <a asp-controller="Admin" asp-action="Applicants" class="btn btn-outline-secondary btn-lg">Back to Applicants</a>
+                    }
+                    else if (@role == "Applicant")
+                    {
+                        <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                        <a asp-controller="Applicant" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg">Back to Dashboard</a>
+                    }
                 </div>
             </form>
         </div>

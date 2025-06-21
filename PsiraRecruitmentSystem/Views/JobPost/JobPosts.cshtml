@@ -10,9 +10,12 @@
 
     @if (role == "Admin")
     {
-        <div class="d-grid gap-2 mb-4">
-            <a asp-controller="JobPost" asp-action="Create" class="btn btn-lg btn-primary">Create New Job Post</a>
+        <div class="col-md-4 d-grid gap-2 mb-4">
+            <a asp-controller="JobPost" asp-action="Create" class="btn btn-lg btn-primary">
+                <i class="bi bi-plus-lg me-2"></i> Create New Job Post
+            </a>
         </div>
+
     }
 
     @if (!Model.Any())
@@ -26,53 +29,46 @@
     }
     else
     {
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 p-3">
-            @foreach (var job in Model)
-            {
-                <div class="col">
-                    <div class="card h-100 shadow-sm border-primary">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Job Opportunity</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <h4 class="card-title text-primary mb-3">@job.Title</h4>
-                            <h6 class="card-subtitle mb-3 text-muted">
-                                <small>
-                                    Posted: @job.DatePosted.ToString("yyyy-MM-dd") |
-                                    Opening: @job.OpeningDate.ToString("yyyy-MM-dd") |
-                                    Closes: @job.ClosingDate.ToString("yyyy-MM-dd")
-                                </small>
-                            </h6>
-                            <hr class="mb-3" />
+        <div class="table-responsive">
+            <table class="table table-hover table-striped shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Date Posted</th>
+                        <th scope="col">Closing Date</th>
+                        <th scope="col">Business Unit</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var job in Model)
+                    {
+                        <tr>
+                            <td>@job.Title</td>
+                            <td>@job.DatePosted.ToString("yyyy-MM-dd")</td>
+                            <td>@job.ClosingDate.ToString("yyyy-MM-dd")</td>
+                            <td>@job.BusinessUnit</td>
+                            <td>
+                                <div class="d-grid gap-2">
+                                    <a asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-primary btn-sm">View Details</a>
 
-                            <p class="card-text mb-2"><strong>Description:</strong> @job.Description</p>
-                            <p class="card-text mb-2"><strong>Business Unit:</strong> @job.BusinessUnit</p>
-                            <p class="card-text mb-2"><strong>Manager:</strong> @job.ManagerNames</p>
-                            <p class="card-text mb-2"><strong>Manager Email:</strong> <a href="mailto:@job.ManagerEmailAddress">@job.ManagerEmailAddress</a></p>
-                            <p class="card-text mb-2"><strong>Required Qualification:</strong> @job.RequiredQualification</p>
-                            <p class="card-text mb-2"><strong>Required Driver's License:</strong> @job.RequiredDriversLicense</p>
-                            <p class="card-text mb-3"><strong>Experience Required:</strong> @job.RequiredExperienceYears years</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4">
-                            <div class="d-grid gap-2">
-                                <a asp-action="Details" asp-route-id="@job.Id" class="btn btn-outline-primary w-100 mb-2">View Details</a>
-
-                                @if (role == "Applicant")
-                                {
-                                    <form asp-action="Submit" asp-controller="JobApplication" method="post" class="mt-4">
-                                        <input type="hidden" asp-for="@job.Id" name="jobPostId" value="@job.Id" />
-                                        <button type="submit" class="btn btn-outline-primary w-100">Apply Now</button>
-                                    </form>
-                                }
-                                else if (role == "Admin")
-                                {
-                                    <a asp-action="Edit" asp-route-id="@job.Id" class="btn btn-primary w-100 mb-2">Edit Details</a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
+                                    @if (role == "Applicant")
+                                    {
+                                        <form asp-action="Submit" asp-controller="JobApplication" method="post" class="mt-2">
+                                            <input type="hidden" asp-for="@job.Id" name="jobPostId" value="@job.Id" />
+                                            <button type="submit" class="btn btn-outline-success btn-sm w-100">Apply Now</button>
+                                        </form>
+                                    }
+                                    else if (role == "Admin")
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@job.Id" class="btn btn-primary btn-sm w-100 mt-2">Edit</a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     }
 </div>

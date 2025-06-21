@@ -5,66 +5,79 @@
     var role = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
     ViewData["Title"] = "Job Post Details";
 }
-<div class="container">
-    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
-        <div class="container-fluid py-5">
-            <h1 class="display-4 fw-bold text-primary mb-3">@Model.Title</h1>
-            <p class="fs-5 text-muted mb-4">
-                Posted: @Model.DatePosted.ToString("yyyy-MM-dd") |
-                Opening: @Model.OpeningDate.ToString("yyyy-MM-dd") |
-                Closing: @Model.ClosingDate.ToString("yyyy-MM-dd")
-            </p>
 
-            <hr class="my-4">
-
-            <h3 class="mb-3">Job Overview</h3>
+<div class="container py-4">
+    <div class="card shadow-sm border-primary mx-auto" style="max-width: 800px;">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h4 class="mb-0">Job Post Details</h4>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="mb-3 text-secondary border-bottom pb-2">@Model.Title</h5>
             <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item">
-                    <strong>Description:</strong><br />
-                    @Model.Description
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Posted:</strong>
+                    <span>@Model.DatePosted.ToString("yyyy-MM-dd")</span>
                 </li>
-                <li class="list-group-item">
-                    <strong>Business Unit:</strong> @Model.BusinessUnit
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Opening Date:</strong>
+                    <span>@Model.OpeningDate.ToString("yyyy-MM-dd")</span>
                 </li>
-                <li class="list-group-item">
-                    <strong>Manager Name:</strong> @Model.ManagerNames
-                </li>
-                <li class="list-group-item">
-                    <strong>Manager Email:</strong> <a href="mailto:@Model.ManagerEmailAddress">@Model.ManagerEmailAddress</a>
-                </li>
-                <li class="list-group-item">
-                    <strong>Required Qualification:</strong> @Model.RequiredQualification
-                </li>
-                <li class="list-group-item">
-                    <strong>Required Driver’s License:</strong> @Model.RequiredDriversLicense
-                </li>
-                <li class="list-group-item">
-                    <strong>Experience Required:</strong> @Model.RequiredExperienceYears years
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Closing Date:</strong>
+                    <span>@Model.ClosingDate.ToString("yyyy-MM-dd")</span>
                 </li>
             </ul>
 
-            <div class="mt-4">
-                @if (role == "Admin")
-                {
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary w-100 mb-2">
-                        <i class="bi bi-pencil-square me-1"></i> Edit Details
-                    </a>
-                }
-                else if (role == "Applicant")
-                {
-                    @* <a asp-controller="JobApplication" asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-success w-100 mb-2">
-                    <i class="bi bi-send-fill me-1"></i> Apply Now
-                </a> *@
-                    <form asp-action="Submit" asp-controller="JobApplication" method="post" class="mt-4">
-                        <input type="hidden" asp-for="@Model.Id" name="jobPostId" value="@Model.Id" />
-
-                        <button type="submit" class="btn btn-outline-primary w-100"><i class="bi bi-send-fill me-1"></i> Apply Now</button>
-                    </form>
-                }
-                <a asp-action="JobPosts" class="btn btn-outline-secondary w-100">
-                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Job List
-                </a>
-            </div>
+            <h5 class="mb-3 text-secondary border-bottom pb-2">Job Overview</h5>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item bg-white px-0">
+                    <strong>Description:</strong><br />
+                    @Model.Description
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Business Unit:</strong>
+                    <span>@Model.BusinessUnit</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Manager Name:</strong>
+                    <span>@Model.ManagerNames</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Manager Email:</strong>
+                    <span><a href="mailto:@Model.ManagerEmailAddress">@Model.ManagerEmailAddress</a></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Required Qualification:</strong>
+                    <span>@Model.RequiredQualification</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Required Driver’s License:</strong>
+                    <span>@Model.RequiredDriversLicense</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-white px-0">
+                    <strong>Experience Required:</strong>
+                    <span>@Model.RequiredExperienceYears years</span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4 d-flex justify-content-between flex-wrap">
+            @if (role == "Admin")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg flex-grow-1 me-2 mb-2">Edit Details</a>
+                <a asp-action="JobPosts" class="btn btn-outline-secondary btn-lg flex-grow-1 mb-2">Back to Job List</a>
+            }
+            else if (role == "Applicant")
+            {
+                <form asp-action="Submit" asp-controller="JobApplication" method="post" class="flex-grow-1 me-2 mb-2">
+                    <input type="hidden" asp-for="@Model.Id" name="jobPostId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary btn-lg w-100"><i class="bi bi-send-fill me-1"></i> Apply Now</button>
+                </form>
+                <a asp-action="JobPosts" class="btn btn-outline-secondary btn-lg flex-grow-1 mb-2">Back to Job List</a>
+            }
+            else
+            {
+                <a asp-action="JobPosts" class="btn btn-outline-secondary btn-lg w-100">Back to Job List</a>
+            }
         </div>
     </div>
 </div>

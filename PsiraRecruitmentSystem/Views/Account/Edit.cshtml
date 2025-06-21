@@ -5,8 +5,6 @@
 }
 
 <div class="container py-4">
-    <h2 class="mb-4 text-center">Edit User Information</h2>
-
     <div class="card shadow-sm border-primary mx-auto" style="max-width: 800px;">
 
         <div class="card-header bg-primary text-white text-center py-3">
@@ -80,7 +78,15 @@
 
                 <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
-                    <a asp-action="Applicants" class="btn btn-outline-secondary btn-lg">Back to Applicants</a> @* Added a back button *@
+                    @if (Model.Role == "Admin")
+                    {
+                        <a asp-controller="Admin" asp-action="Applicants" class="btn btn-outline-secondary btn-lg">Back to Applicants</a>
+                    }
+                    else if (Model.Role == "Applicant")
+                    {
+                        <a asp-controller="Applicant" asp-action="Dashboard" class="btn btn-outline-secondary btn-lg">Back to Dashboard</a>
+                    }
+
                 </div>
             </form>
         </div>

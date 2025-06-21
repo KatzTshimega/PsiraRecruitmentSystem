@@ -17,65 +17,64 @@
     }
     else
     {
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 p-3">
-            @{
-                int count = 1;
-                foreach (var app in Model)
-                {
-                    var user = app.Applicant?.User;
+        <div class="table-responsive">
+            <table class="table table-hover table-striped shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Applicant Name</th>
+                        <th scope="col">Date Applied</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                        foreach (var app in Model)
+                        {
+                            var user = app.Applicant?.User;
 
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-primary">
-                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Application #@count</h5>
-                                <span class="badge bg-light text-primary fs-6">@app.JobPost?.Title</span>
-                            </div>
-                            <div class="card-body p-4">
-                                <h6 class="card-subtitle mb-3 text-muted">Applied on: @app.DateApplied.ToString("dd MMM yyyy HH:mm")</h6>
-                                <hr />
+                            <tr>
+                                <th scope="row">@count</th>
+                                <td>@app.JobPost?.Title</td>
+                                <td>@(user != null ? user.Name + " " + user.Surname : "Unknown")</td>
+                                <td>@app.DateApplied.ToString("dd MMM yyyy HH:mm")</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight_@app.Id" aria-controls="offcanvasRight_@app.Id">
+                                        View Details
+                                    </button>
 
-                                <ul class="list-group list-group-flush mb-3">
-                                    <li class="list-group-item px-0 pb-1 pt-0 bg-white">
-                                        <strong>Applicant:</strong> @(user != null ? user.Name + " " + user.Surname : "Unknown")
-                                    </li>
-                                    <li class="list-group-item px-0 pb-1 pt-0 bg-white">
-                                        <strong>Email:</strong> @(user?.Email ?? "N/A")
-                                    </li>
-                                    <li class="list-group-item px-0 pb-1 pt-0 bg-white">
-                                        <strong>Phone:</strong> @(user?.CellPhoneNumber ?? "N/A")
-                                    </li>
-                                </ul>
-
-                                <div class="accordion accordion-flush" id="applicationDetails_@app.Id">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingApp_@app.Id">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseApp_@app.Id" aria-expanded="false" aria-controls="flush-collapseApp_@app.Id">
-                                                Job Details
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseApp_@app.Id" class="accordion-collapse collapse" aria-labelledby="flush-headingApp_@app.Id" data-bs-parent="#applicationDetails_@app.Id">
-                                            <div class="accordion-body">
-                                                <p class="mb-1"><strong>Job Description:</strong> @app.JobPost?.Description</p>
-                                                <p class="mb-1"><strong>Required Qualification:</strong> @app.JobPost?.RequiredQualification</p>
-                                                <p class="mb-1"><strong>Required Experience:</strong> @app.JobPost?.RequiredExperienceYears years</p>
-                                                <p class="mb-1"><strong>Date Posted:</strong> @app.JobPost?.DatePosted.ToString("dd MMM yyyy")</p>
-                                                <p class="mb-1"><strong>Closing Date:</strong> @app.JobPost?.ClosingDate.ToString("dd MMM yyyy")</p>
+                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight_@app.Id" aria-labelledby="offcanvasRightLabel_@app.Id">
+                                        <div class="offcanvas-header">
+                                            <h5 id="offcanvasRightLabel_@app.Id">Application Details (#@count)</h5>
+                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            <h6>Applicant Information:</h6>
+                                            <p><strong>Email:</strong> @(user?.Email ?? "N/A")</p>
+                                            <p><strong>Phone:</strong> @(user?.CellPhoneNumber ?? "N/A")</p>
+                                            <hr />
+                                            <h6>Job Post Information:</h6>
+                                            <p><strong>Job Description:</strong> @app.JobPost?.Description</p>
+                                            <p><strong>Required Qualification:</strong> @app.JobPost?.RequiredQualification</p>
+                                            <p><strong>Required Experience:</strong> @app.JobPost?.RequiredExperienceYears years</p>
+                                            <p><strong>Date Posted:</strong> @app.JobPost?.DatePosted.ToString("dd MMM yyyy")</p>
+                                            <p><strong>Closing Date:</strong> @app.JobPost?.ClosingDate.ToString("dd MMM yyyy")</p>
+                                            <hr />
+                                            <div class="d-grid gap-2">
+                                                <a asp-controller="Applicant" asp-action="Details" asp-route-id="@app.Applicant?.Id" class="btn btn-outline-primary">View Applicant Profile</a>
+                                                <a asp-controller="JobPost" asp-action="Details" asp-route-id="@app.JobPost?.Id" class="btn btn-outline-info">View Job Post</a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent border-top pt-3 px-4 pb-4">
-                                <div class="d-grid gap-2">
-                                    <a asp-controller="Applicant" asp-action="Details" asp-route-id="@app.Applicant?.Id" class="btn btn-outline-primary w-100">View Applicant Profile</a>
-                                    <a asp-controller="JobPost" asp-action="Details" asp-route-id="@app.JobPost?.Id" class="btn btn-outline-info w-100 mt-2">View Job Post</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    count++;
-                }
-            }
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
     }
 </div>

@@ -17,11 +17,16 @@ namespace PsiraRecruitmentSystem.Controllers
         //  /Admin/SiftingOfCVs
         public async Task<IActionResult> CvSifting()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             // Load all job applications along with related user and applicant details
             var applications = await _context.JobApplications
                 .Include(j => j.Applicant)
                 .ThenInclude(a => a.User)
                 .Include(j => j.JobPost)
+                .Where(j => j.Applicant.User.Role != "Admin")
                 .ToListAsync();
 
             var viewModel = new List<CvSiftingViewModel>();

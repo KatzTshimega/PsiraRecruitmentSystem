@@ -19,12 +19,20 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /Admin/Dashboard 
         public IActionResult Dashboard()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             return View();
         }
 
         // GET: View all job posts  /Admin/ListJobPosts 
         public async Task<IActionResult> ListJobPosts()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             var jobs = await _context.JobPosts.OrderByDescending(j => j.DatePosted).ToListAsync();
             return View(jobs);
         }
@@ -32,6 +40,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: View all applicants /Admin/Applicants
         public async Task<IActionResult> Applicants()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             var applicants = await _context.Users
                 .Where(u => u.Role == "Applicant")
                 .Include(a => a.ApplicantDetails)
@@ -43,6 +55,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: View all applications submitted
         public async Task<IActionResult> Applications()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             var applications = await _context.JobApplications
                 .Include(a => a.JobPost)
                 .Include(a => a.Applicant)
@@ -55,6 +71,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // Redirect to CV Sifting screen
         public IActionResult CvSifting()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             return RedirectToAction("Index", "CvSifting");
         }
     }

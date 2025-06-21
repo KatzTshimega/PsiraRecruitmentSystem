@@ -19,6 +19,10 @@ namespace PsiraRecruitmentSystem.Controllers
         // GET: /JobPost
         public async Task<IActionResult> JobPosts()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
+
             var jobPosts = await _context.JobPosts.ToListAsync();
             return View(jobPosts);
         }
