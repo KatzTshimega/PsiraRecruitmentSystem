@@ -85,7 +85,3 @@ The application will be available at [https://localhost:5001](https://localhost:
 
 * * *
 
-📄 License
-----------
-
-This project is proprietary and intended for PSiRA recruitment purposes.
