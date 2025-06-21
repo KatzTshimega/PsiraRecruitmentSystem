@@ -1,55 +1,91 @@
-# 📄 PSiRA e-Recruitment System
+PSiRA e-Recruitment System
+==========================
 
-A web-based e-Recruitment system built using **ASP.NET Core 8 MVC** with **Entity Framework Core**, allowing applicants to register, upload CVs, and apply for jobs — while admins manage posts, applications, and CV sifting.
+**Author:** Katlego Monamodi ([katztshimega@gmail.com](mailto:katztshimega@gmail.com))
 
----
+**Project Type:** ASP.NET Core MVC Web Application
 
-## 📦 Tech Stack & Libraries
+**Target Framework:** .NET 8.0
 
-- **ASP.NET Core 8 MVC** – Web application framework
-- **Entity Framework Core** – ORM for data access
-- **SQL Server** – Relational database
-- **Bootstrap 5** – Responsive UI design
-- **Font Awesome** & **Bootstrap Icons** – Icons and UI enhancements
-- **BCrypt.Net** – Password hashing
-- **Session Management** – For role-based access
-- **Razor Pages** – For fast templating and views
-- **LINQ & EF Migrations** – For querying and schema evolution
+* * *
 
----
+📋 Project Overview
+-------------------
 
-## 🧰 Features
+This web application is a recruitment system for the Private Security Industry Regulatory Authority (PSiRA). It allows administrators to manage job posts, sift CVs, and track applications, while applicants can register, upload CVs, and apply for job postings.
 
-### 👥 Applicant
-- User registration with CV upload
-- Login/Logout system
-- Apply to active job posts
-- View application history
-- Upload/replace CVs
+* * *
 
-### 🛠 Admin
-- Create/Edit/Delete job posts
-- View applicants and their CVs
-- View submitted applications
-- Access CV Sifting functionality
-- Manage closed job posts
+🧰 Technologies & Libraries Used
+--------------------------------
 
----
+ *   **ASP.NET Core MVC** (.NET 8)
+ *   **Entity Framework Core** with SQL Server
+ *   **Bootstrap 5** for responsive UI
+ *   **Font Awesome** and **Bootstrap Icons** for UI icons
+ *   **BCrypt.Net** for password hashing
+ *   **Session-based authentication** (with role-based navigation)
 
-## 🚀 Setup Instructions
+* * *
 
-### ✅ Prerequisites
+⚙️ Setup Instructions
+---------------------
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-- [Visual Studio 2022+](https://visualstudio.microsoft.com/) with ASP.NET and EF workloads
-- [Git](https://git-scm.com/)
+### 1\. Clone the Repository
 
----
+    git clone https://github.com/KatzTshimega/PsiraRecruitmentSystem.git
 
-### 🔧 Getting Started
+### 2\. Install Dependencies
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/KatzTshimega/PsiraRecruitmentSystem.git
-   cd PsiraRecruitmentSystem
+Ensure that you have the following installed:
+
+ *   .NET 8 SDK
+ *   SQL Server or LocalDB
+
+### 3\. Update Connection String
+
+Edit `appsettings.json` and update your database connection string:
+
+    "ConnectionStrings": {
+      "DefaultConnection": "Server=YOUR_SERVER;Database=PsiraRecruitmentDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+
+### 4\. Run Migrations & Seed Database
+
+    dotnet ef database update
+
+To seed the database with initial roles and admin user, run (if implemented):
+
+    dotnet run seed
+
+### 5\. Build and Run the Project
+
+    dotnet run
+
+The application will be available at [https://localhost:5001](https://localhost:5001)
+
+* * *
+
+👤 Roles & Access
+-----------------
+
+ *   **Admin**: Can manage job posts, view applicants, sift CVs, and manage applications.
+ *   **Applicant**: Can register, upload CV, view job posts, and apply.
+
+* * *
+
+📂 Folder Structure
+-------------------
+
+ *   **Controllers**: MVC Controllers
+ *   **Models**: Database entities
+ *   **Views**: Razor Views
+ *   **ViewModels**: Form and logic binding models
+ *   **wwwroot/uploads/cvs**: Uploaded CVs
+
+* * *
+
+📄 License
+----------
+
+This project is proprietary and intended for PSiRA recruitment purposes.
