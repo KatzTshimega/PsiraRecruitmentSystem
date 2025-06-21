@@ -8,7 +8,7 @@
     <h2 class="mb-4 text-center">Edit User Information</h2>
 
     <div class="card shadow-sm border-primary mx-auto" style="max-width: 800px;">
-       
+
         <div class="card-header bg-primary text-white text-center py-3">
             <h4 class="mb-0">Update Your Profile</h4>
         </div>
@@ -19,16 +19,23 @@
                 <input type="hidden" asp-for="Role" value="@Model.Role" />
 
                 <div class="row g-3">
-                   
+
                     <div class="col-md-6">
                         <label asp-for="Email" class="form-label fw-bold"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-6">
                         <label asp-for="IdNumber" class="form-label fw-bold"></label>
                         <input asp-for="IdNumber" class="form-control" />
                         <span asp-validation-for="IdNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Username" class="form-label fw-bold">Username</label>
+                        <input asp-for="Username" class="form-control" placeholder="Enter your Username" required />
+                        <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">

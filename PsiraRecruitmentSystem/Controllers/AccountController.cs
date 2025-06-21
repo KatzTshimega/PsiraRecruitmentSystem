@@ -97,6 +97,7 @@ namespace PsiraRecruitmentSystem.Controllers
                 user.Role = model.Role;
                 user.Name = model.Name;
                 user.Surname = model.Surname;
+                user.Username = model.Username;
                 user.CellPhoneNumber = model.CellPhoneNumber;
                 user.WorkNumber = model.WorkNumber;
                 user.HomeAddress = model.HomeAddress;
