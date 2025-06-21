@@ -54,7 +54,7 @@ Edit `appsettings.json` and update your database connection string:
 
     dotnet ef database update
 
-To seed the database with initial roles and admin user, run (if implemented):
+To seed the database with initial roles and admin user, run:
 
     dotnet run seed
 
